@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Free Convert</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #667eea;
+            --secondary-color: #764ba2;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8f9ff;
+            --text-primary: #2c3e50;
+            --text-secondary: #666;
+            --border-color: #e0e0e0;
+            --shadow: rgba(0, 0, 0, 0.1);
+            --card-bg: #ffffff;
+            --btn-grad: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #1a1a2e;
+            --bg-secondary: #16213e;
+            --text-primary: #eaeaea;
+            --text-secondary: #b8b8b8;
+            --border-color: #2d3748;
+            --shadow: rgba(0, 0, 0, 0.5);
+            --card-bg: #16213e;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: all 0.4s ease;
+        }
+
+        /* --- Navigation --- */
+        nav {
+            background: var(--bg-primary);
+            padding: 1rem 0;
+            box-shadow: 0 4px 20px var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.6rem;
+            font-weight: 800;
+            background: var(--btn-grad);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            width: 35px; height: 35px; background: var(--btn-grad);
+            border-radius: 8px; display: flex; align-items: center;
+            justify-content: center; color: white; font-size: 1.2rem;
+            -webkit-text-fill-color: white;
+        }
+
+        .nav-links { display: flex; gap: 1rem; align-items: center; }
+        .nav-links a {
+            color: var(--text-primary); text-decoration: none;
+            font-weight: 500; font-size: 0.9rem; padding: 0.5rem 0.8rem;
+            transition: 0.3s;
+        }
+
+        .theme-toggle {
+            background: var(--bg-secondary); border: 1px solid var(--border-color);
+            width: 40px; height: 40px; border-radius: 50%; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+        }
+
+        /* --- Hero Section --- */
+        .about-hero {
+            padding: 100px 20px;
+            text-align: center;
+            background: var(--bg-secondary);
+        }
+
+        .about-hero h1 { font-size: 3.5rem; font-weight: 800; margin-bottom: 20px; }
+        .about-hero p { max-width: 700px; margin: 0 auto; color: var(--text-secondary); font-size: 1.1rem; }
+
+        /* --- Stats Section --- */
+        .stats-grid {
+            max-width: 1200px;
+            margin: -50px auto 60px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 0 20px;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+
+        .stat-card h2 { font-size: 2.5rem; color: var(--primary-color); margin-bottom: 5px; }
+
+        /* --- Content Sections --- */
+        .content-section { max-width: 1200px; margin: 80px auto; padding: 0 20px; }
+        
+        .flex-container {
+            display: flex;
+            align-items: center;
+            gap: 60px;
+            margin-bottom: 100px;
+        }
+
+        .flex-container:nth-child(even) { flex-direction: row-reverse; }
+
+        .image-placeholder {
+            flex: 1;
+            background: var(--btn-grad);
+            height: 350px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            color: white;
+            opacity: 0.9;
+        }
+
+        .text-content { flex: 1; }
+        .text-content h2 { font-size: 2.2rem; margin-bottom: 20px; }
+        .text-content p { margin-bottom: 20px; color: var(--text-secondary); }
+
+        /* --- Values Section --- */
+        .values-section { background: var(--bg-secondary); padding: 80px 20px; text-align: center; }
+        .values-grid {
+            max-width: 1200px;
+            margin: 40px auto 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .value-card {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 24px;
+            transition: 0.3s;
+        }
+
+        .value-card:hover { transform: translateY(-10px); }
+        .value-icon { font-size: 2.5rem; margin-bottom: 20px; display: block; }
+
+        /* --- Footer --- */
+        footer {
+            background: var(--bg-primary);
+            padding: 80px 20px 30px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 50px;
+        }
+
+        .footer-section h3 { margin-bottom: 25px; font-weight: 700; }
+        .footer-section a { display: block; color: var(--text-secondary); text-decoration: none; margin-bottom: 12px; transition: 0.3s; }
+        .footer-section a:hover { color: var(--primary-color); transform: translateX(5px); }
+
+        .footer-bottom {
+            max-width: 1200px; margin: 60px auto 0; text-align: center;
+            padding-top: 30px; border-top: 1px solid var(--border-color);
+            color: var(--text-secondary); font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .flex-container { flex-direction: column !important; text-align: center; gap: 30px; }
+            .about-hero h1 { font-size: 2.5rem; }
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body data-theme="dark">
+
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">🔄</div> Free Convert
+            </a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="about.html">About Us</a>
+                <a href="contact.html">Contact</a>
+                <a href="privacy.html">Privacy</a>
+            </div>
+            <button class="theme-toggle" onclick="toggleTheme()">
+                <span id="theme-icon">☀️</span>
+            </button>
+        </div>
+    </nav>
+
+    <header class="about-hero">
+        <h1>Simplify Your Workflow</h1>
+        <p>At Free Convert, we believe file conversion should be fast, secure, and accessible to everyone without any cost.</p>
+    </header>
+
+    <div class="stats-grid">
+        <div class="stat-card"><h2>1M+</h2><p>Files Converted</p></div>
+        <div class="stat-card"><h2>100%</h2><p>Free to Use</p></div>
+        <div class="stat-card"><h2>24/7</h2><p>Cloud Access</p></div>
+        <div class="stat-card"><h2>SECURE</h2><p>Data Privacy</p></div>
+    </div>
+
+    <main class="content-section">
+        <div class="flex-container">
+            <div class="image-placeholder">🚀</div>
+            <div class="text-content">
+                <h2>Our Mission</h2>
+                <p>Our mission is to empower users with a versatile set of tools that make digital tasks easier. Whether you're a student, a professional, or someone just looking to fix a file format, we provide high-quality conversion algorithms that maintain original file quality.</p>
+                <p>We are constantly evolving, adding more formats and faster servers to ensure you spend less time waiting and more time working.</p>
+            </div>
+        </div>
+
+        <div class="flex-container">
+            <div class="image-placeholder">🔒</div>
+            <div class="text-content">
+                <h2>Privacy is Our Priority</h2>
+                <p>We understand the importance of your data. Unlike many other platforms, Free Convert uses high-level encryption and automated deletion protocols. Your files are only processed for conversion and are never stored or shared with third parties.</p>
+                <p>Security is not just a feature for us; it’s the foundation of everything we build.</p>
+            </div>
+        </div>
+    </main>
+
+    <section class="values-section">
+        <h2>Why Choose Free Convert?</h2>
+        <div class="values-grid">
+            <div class="value-card">
+                <span class="value-icon">⚡</span>
+                <h3>Instant Results</h3>
+                <p>Optimized algorithms to deliver the fastest conversion speeds in the industry.</p>
+            </div>
+            <div class="value-card">
+                <span class="value-icon">💎</span>
+                <h3>High Quality</h3>
+                <p>Zero loss in quality during image, audio, or document conversions.</p>
+            </div>
+            <div class="value-card">
+                <span class="value-icon">🛠️</span>
+                <h3>No Installation</h3>
+                <p>Everything works directly in your browser. No software or plugins required.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>🎯 Free Convert</h3>
+                <p>The best solution for all your file conversion needs.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="index.html">Home</a>
+                <a href="about.html">About Us</a>
+                <a href="privacy.html">Privacy Policy</a>
+            </div>
+            <div class="footer-section">
+                <h3>Support</h3>
+                <a href="contact.html">Contact Us</a>
+                <a href="#">FAQ</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Induwara Deshan. All rights reserved. ❤️</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleTheme() {
+            const body = document.body;
+            const icon = document.getElementById('theme-icon');
+            if (body.getAttribute('data-theme') === 'light') {
+                body.setAttribute('data-theme', 'dark');
+                icon.textContent = '☀️';
+            } else {
+                body.setAttribute('data-theme', 'light');
+                icon.textContent = '🌙';
+            }
+        }
+    </script>
+</body>
+</html>

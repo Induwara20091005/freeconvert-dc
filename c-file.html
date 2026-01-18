@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Tools - Free Convert</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #667eea;
+            --secondary-color: #764ba2;
+            --bg-primary: #1a1a2e;
+            --bg-secondary: #16213e;
+            --text-primary: #eaeaea;
+            --card-bg: #16213e;
+            --border-color: #2d3748;
+            --btn-grad: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Poppins', sans-serif; background-color: var(--bg-primary); color: var(--text-primary); }
+
+        .container { max-width: 1000px; margin: 50px auto; padding: 20px; text-align: center; }
+
+        .tool-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .tool-card {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .tool-card:hover { border-color: var(--primary-color); transform: translateY(-5px); }
+
+        .select-btn {
+            background: var(--btn-grad);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            display: inline-block;
+            margin-top: 15px;
+            font-weight: 600;
+        }
+
+        /* Processing UI */
+        #processOverlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8); backdrop-filter: blur(10px);
+            display: none; flex-direction: column; justify-content: center; align-items: center;
+            z-index: 1000;
+        }
+
+        .loader-box {
+            width: 300px; background: var(--bg-secondary); padding: 30px;
+            border-radius: 20px; text-align: center; border: 1px solid var(--primary-color);
+        }
+
+        .progress-container {
+            width: 100%; height: 8px; background: #2d3748; border-radius: 10px;
+            margin: 20px 0; overflow: hidden;
+        }
+
+        .progress-bar { width: 0%; height: 100%; background: var(--btn-grad); transition: 0.3s; }
+
+        .download-btn {
+            display: none; background: #10b981; color: white;
+            padding: 12px 25px; border-radius: 10px; text-decoration: none;
+            font-weight: 700; margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>PDF & Document Tools</h1>
+        <p style="color: #888;">Select a tool to start processing your documents.</p>
+
+        <div class="tool-grid">
+            <div class="tool-card" onclick="triggerUpload('PDF to Word')">
+                <span style="font-size: 2.5rem;">📝</span>
+                <h3>PDF to Word</h3>
+                <p style="font-size: 0.8rem; color: #777;">Convert PDF to editable DOCX</p>
+                <div class="select-btn">Select PDF</div>
+            </div>
+
+            <div class="tool-card" onclick="triggerUpload('PDF to Image')">
+                <span style="font-size: 2.5rem;">🖼️</span>
+                <h3>PDF to Image</h3>
+                <p style="font-size: 0.8rem; color: #777;">Convert PDF pages to JPG</p>
+                <div class="select-btn">Select PDF</div>
+            </div>
+        </div>
+
+        <input type="file" id="hiddenInput" style="display: none;">
+        <a href="index.html" style="display: block; margin-top: 40px; color: var(--primary-color); text-decoration: none;">← Back to Home</a>
+    </div>
+
+    <div id="processOverlay">
+        <div class="loader-box">
+            <h3 id="statusTitle">Processing...</h3>
+            <p id="workingFile" style="font-size: 0.8rem; color: #888; margin-top: 5px;"></p>
+            <div class="progress-container">
+                <div class="progress-bar" id="pBar"></div>
+            </div>
+            <a href="#" id="finalDownload" class="download-btn" download>Download File</a>
+            <button onclick="location.reload()" id="closeBtn" style="margin-top: 15px; background: none; border: none; color: #555; cursor: pointer; display: none;">Close</button>
+        </div>
+    </div>
+
+    <script>
+        const fileInput = document.getElementById('hiddenInput');
+        const overlay = document.getElementById('processOverlay');
+        const pBar = document.getElementById('pBar');
+        const statusTitle = document.getElementById('statusTitle');
+        const downloadBtn = document.getElementById('finalDownload');
+        const closeBtn = document.getElementById('closeBtn');
+
+        function triggerUpload(type) {
+            fileInput.click();
+            fileInput.onchange = function() {
+                if (this.files.length > 0) {
+                    startSimulation(this.files[0].name, type);
+                }
+            };
+        }
+
+        function startSimulation(fileName, type) {
+            overlay.style.display = 'flex';
+            document.getElementById('workingFile').textContent = fileName;
+            
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += Math.random() * 15;
+                if (progress >= 100) {
+                    progress = 100;
+                    clearInterval(interval);
+                    showComplete(type);
+                }
+                pBar.style.width = progress + '%';
+            }, 300);
+        }
+
+        function showComplete(type) {
+            statusTitle.textContent = "Conversion Complete!";
+            statusTitle.style.color = "#10b981";
+            
+            // සැබෑ file එකක් නැති නිසා දැනට තෝරාගත් file එකම download වීමට සලස්වමු
+            const file = fileInput.files[0];
+            const url = URL.createObjectURL(file);
+            downloadBtn.href = url;
+            downloadBtn.style.display = 'inline-block';
+            closeBtn.style.display = 'inline-block';
+        }
+    </script>
+</body>
+</html>

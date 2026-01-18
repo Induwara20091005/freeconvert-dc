@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - Free Convert</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #667eea;
+            --secondary-color: #764ba2;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8f9ff;
+            --text-primary: #2c3e50;
+            --text-secondary: #666;
+            --card-bg: #ffffff;
+            --border-color: #e0e0e0;
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #1a1a2e;
+            --bg-secondary: #16213e;
+            --text-primary: #eaeaea;
+            --text-secondary: #b8b8b8;
+            --card-bg: #16213e;
+            --border-color: #2d3748;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: all 0.4s ease;
+        }
+
+        nav {
+            background: var(--bg-primary);
+            padding: 1.2rem 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            text-decoration: none;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 3rem auto;
+            padding: 2.5rem;
+            background: var(--card-bg);
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        h1 { margin-bottom: 1.5rem; color: var(--primary-color); font-size: 2rem; }
+        h2 { margin: 1.5rem 0 1rem; color: var(--text-primary); font-size: 1.3rem; border-bottom: 2px solid var(--primary-color); display: inline-block; }
+        p { margin-bottom: 1rem; color: var(--text-secondary); font-size: 0.95rem; }
+        ul { margin-bottom: 1rem; padding-left: 1.5rem; color: var(--text-secondary); }
+        li { margin-bottom: 0.5rem; }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: var(--bg-primary);
+            margin-top: 3rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body data-theme="light">
+
+    <nav>
+        <a href="index.html" class="logo">🎯 Free Convert</a>
+    </nav>
+
+    <div class="container">
+        <a href="index.html" class="back-btn">← Back to Home</a>
+        <h1>Privacy Policy</h1>
+        <p>Last Updated: May 2024</p>
+
+        <p>Welcome to <strong>Free Convert</strong>. We value your privacy and are committed to protecting your personal information. This Privacy Policy explains how we collect, use, and safeguard your data when you use our website.</p>
+
+        <h2>1. Information We Collect</h2>
+        <p>We do not collect any personal identification information (such as names or emails) unless you voluntarily provide it through a contact form. Most of our tools process files <strong>locally in your browser</strong>, meaning your files are never uploaded to our servers.</p>
+
+        <h2>2. Cookies and Advertisements</h2>
+        <p>We use Google AdSense to serve advertisements. Google uses cookies to serve ads based on your prior visits to our website or other websites. Google's use of advertising cookies enables it and its partners to serve ads to you based on your visit to our site.</p>
+        <ul>
+            <li>Users may opt out of personalized advertising by visiting <a href="https://www.google.com/settings/ads" target="_blank">Ads Settings</a>.</li>
+            <li>We do not have access to or control over these cookies used by third-party advertisers.</li>
+        </ul>
+
+        <h2>3. Local Data Processing</h2>
+        <p>Our converters (Image, Audio, Video) utilize client-side technology. This means the conversion happens on your device. Your data remains private and secure on your local system.</p>
+
+        <h2>4. Third-Party Links</h2>
+        <p>Our website may contain links to other sites. We are not responsible for the privacy practices or content of those websites.</p>
+
+        <h2>5. Consent</h2>
+        <p>By using our website, you hereby consent to our Privacy Policy and agree to its terms.</p>
+
+        <h2>6. Contact Us</h2>
+        <p>If you have any questions regarding this Privacy Policy, you can contact us at: <strong>gginduwaradeshan@gmail.com</strong></p>
+    </div>
+
+    <footer>
+        <p>Made with ❤️ by Induwara Deshan - All rights reserved &copy; 2024</p>
+    </footer>
+
+    <script>
+        // පරණ සයිට් එකේ theme එකම මෙයටත් ලැබීමට
+        window.addEventListener('load', function() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.body.setAttribute('data-theme', savedTheme);
+        });
+    </script>
+</body>
+</html>

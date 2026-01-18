@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Converter - Free Convert</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #667eea;
+            --secondary-color: #764ba2;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8f9ff;
+            --text-primary: #2c3e50;
+            --text-secondary: #666;
+            --border-color: #e0e0e0;
+            --shadow: rgba(0, 0, 0, 0.1);
+            --card-bg: #ffffff;
+            --btn-grad: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #1a1a2e;
+            --bg-secondary: #16213e;
+            --text-primary: #eaeaea;
+            --text-secondary: #b8b8b8;
+            --border-color: #2d3748;
+            --shadow: rgba(0, 0, 0, 0.5);
+            --card-bg: #16213e;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: all 0.4s ease;
+        }
+
+        /* --- Navigation --- */
+        nav {
+            background: var(--bg-primary);
+            padding: 1rem 0;
+            box-shadow: 0 4px 20px var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px; margin: 0 auto; padding: 0 20px;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+
+        .logo {
+            font-size: 1.6rem; font-weight: 800; background: var(--btn-grad);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            text-decoration: none; display: flex; align-items: center; gap: 10px;
+        }
+
+        .nav-links a {
+            color: var(--text-primary); text-decoration: none; margin-left: 20px;
+            font-weight: 500; font-size: 0.9rem;
+        }
+
+        .theme-toggle {
+            background: var(--bg-secondary); border: 1px solid var(--border-color);
+            width: 40px; height: 40px; border-radius: 50%; cursor: pointer; margin-left: 20px;
+        }
+
+        /* --- Converter Section --- */
+        .converter-container {
+            max-width: 800px; margin: 60px auto; padding: 0 20px; text-align: center;
+        }
+
+        .converter-card {
+            background: var(--card-bg);
+            padding: 50px 30px;
+            border-radius: 30px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 20px 40px var(--shadow);
+        }
+
+        .drop-zone {
+            border: 2px dashed var(--primary-color);
+            border-radius: 20px;
+            padding: 40px;
+            cursor: pointer;
+            background: var(--bg-secondary);
+            transition: 0.3s;
+            margin-bottom: 30px;
+        }
+
+        .drop-zone:hover { background: rgba(102, 126, 234, 0.1); }
+        .drop-zone p { margin-top: 15px; color: var(--text-secondary); }
+
+        .file-info {
+            display: none;
+            background: var(--bg-primary);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            text-align: left;
+            border: 1px solid var(--border-color);
+        }
+
+        .controls {
+            display: flex; gap: 15px; justify-content: center; align-items: center; flex-wrap: wrap;
+        }
+
+        select {
+            padding: 12px 20px; border-radius: 10px; border: 1px solid var(--border-color);
+            background: var(--bg-primary); color: var(--text-primary); font-family: inherit; outline: none;
+        }
+
+        .convert-btn {
+            background: var(--btn-grad); color: white; border: none;
+            padding: 12px 35px; border-radius: 10px; font-weight: 700; cursor: pointer; transition: 0.3s;
+        }
+
+        .convert-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        .status-msg { margin-top: 20px; font-weight: 600; color: #10b981; display: none; }
+
+        /* --- Footer --- */
+        footer {
+            background: var(--bg-primary); padding: 80px 20px 30px;
+            border-top: 1px solid var(--border-color); margin-top: 100px;
+        }
+
+        .footer-container {
+            max-width: 1200px; margin: 0 auto;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 50px;
+        }
+
+        .footer-bottom {
+            max-width: 1200px; margin: 60px auto 0; text-align: center;
+            padding-top: 30px; border-top: 1px solid var(--border-color);
+            color: var(--text-secondary); font-size: 0.9rem;
+        }
+
+        @media (max-width: 600px) { .nav-links { display: none; } }
+    </style>
+</head>
+<body data-theme="dark">
+
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">🔄 Free Convert</a>
+            <div style="display: flex; align-items: center;">
+                <div class="nav-links">
+                    <a href="index.html">Home</a>
+                    <a href="about.html">About Us</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+                <button class="theme-toggle" onclick="toggleTheme()"><span id="theme-icon">☀️</span></button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="converter-container">
+        <h1>Audio Converter</h1>
+        <p style="color: var(--text-secondary); margin-bottom: 40px;">Convert your audio files to MP3, WAV, or OGG instantly.</p>
+
+        <div class="converter-card">
+            <div class="drop-zone" onclick="document.getElementById('audioInput').click()">
+                <span style="font-size: 3.5rem;">🎵</span>
+                <p>Click to upload or Drag & Drop audio file</p>
+                <input type="file" id="audioInput" accept="audio/*" style="display: none;">
+            </div>
+
+            <div id="fileInfo" class="file-info">
+                <p id="fileName" style="font-weight: 700;"></p>
+                <p id="fileSize" style="font-size: 0.8rem; color: var(--text-secondary);"></p>
+            </div>
+
+            <div class="controls">
+                <span>Target Format:</span>
+                <select id="formatSelect">
+                    <option value="mp3">MP3</option>
+                    <option value="wav">WAV</option>
+                    <option value="ogg">OGG</option>
+                </select>
+                <button id="convertBtn" class="convert-btn" disabled>Convert Now</button>
+            </div>
+
+            <p id="statusMsg" class="status-msg">Processing complete! Your download should start shortly.</p>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section"><h3>🔄 Free Convert</h3><p>Fast, Secure and Free file conversion tools.</p></div>
+            <div class="footer-section">
+                <h3>Links</h3>
+                <a href="index.html">Home</a>
+                <a href="about.html">About Us</a>
+                <a href="contact.html">Contact Us</a>
+            </div>
+            <div class="footer-section"><h3>Security</h3><a href="privacy.html">Privacy Policy</a><a href="#">Terms</a></div>
+        </div>
+        <div class="footer-bottom"><p>&copy; 2026 Free Convert. All rights reserved.</p></div>
+    </footer>
+
+    <script>
+        function toggleTheme() {
+            const body = document.body;
+            const icon = document.getElementById('theme-icon');
+            if (body.getAttribute('data-theme') === 'light') {
+                body.setAttribute('data-theme', 'dark');
+                icon.textContent = '☀️';
+            } else {
+                body.setAttribute('data-theme', 'light');
+                icon.textContent = '🌙';
+            }
+        }
+
+        const audioInput = document.getElementById('audioInput');
+        const fileInfo = document.getElementById('fileInfo');
+        const fileName = document.getElementById('fileName');
+        const fileSize = document.getElementById('fileSize');
+        const convertBtn = document.getElementById('convertBtn');
+        const statusMsg = document.getElementById('statusMsg');
+
+        audioInput.onchange = function() {
+            const file = this.files[0];
+            if (file) {
+                fileName.textContent = file.name;
+                fileSize.textContent = (file.size / (1024 * 1024)).toFixed(2) + " MB";
+                fileInfo.style.display = 'block';
+                convertBtn.disabled = false;
+                statusMsg.style.display = 'none';
+            }
+        };
+
+        convertBtn.onclick = function() {
+            const file = audioInput.files[0];
+            const format = document.getElementById('formatSelect').value;
+            
+            convertBtn.textContent = "Converting...";
+            convertBtn.disabled = true;
+
+            // Simulating conversion (In browser using Blob)
+            setTimeout(() => {
+                const url = URL.createObjectURL(file);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `converted-audio.${format}`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                
+                statusMsg.style.display = 'block';
+                convertBtn.textContent = "Convert Now";
+                convertBtn.disabled = false;
+            }, 1500);
+        };
+    </script>
+</body>
+</html>

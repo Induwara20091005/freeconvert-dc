@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - Free Convert</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --text-primary: #f8fafc;
+            --accent-red: #ef4444;
+            --btn-grad: linear-gradient(135deg, #ef4444 0%, #991b1b 100%);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        .container { max-width: 800px; margin: 50px auto; padding: 20px; }
+        
+        h1 { text-align: center; color: var(--accent-red); margin-bottom: 40px; font-weight: 800; }
+
+        .faq-item {
+            background: var(--bg-secondary);
+            margin-bottom: 15px;
+            border-radius: 12px;
+            border: 1px solid #334155;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+        }
+
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: 0.3s ease;
+            color: #94a3b8;
+        }
+
+        .faq-item.active .faq-answer { padding-bottom: 20px; max-height: 200px; }
+        .faq-item.active .faq-question { color: var(--accent-red); }
+
+        .back-btn {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <a href="index.html" class="back-btn">⬅ Back to Home</a>
+    <h1>Frequently Asked Questions 🙋‍♂️</h1>
+
+    <div class="faq-item">
+        <div class="faq-question">මෙම සේවාව නොමිලේ ලබාදෙන එකක්ද? <span>+</span></div>
+        <div class="faq-answer">ඔව්, Free Convert හරහා ඔබට ඕනෑම ගොනුවක් සම්පූර්ණයෙන්ම නොමිලේ පරිවර්තනය කරගත හැක.</div>
+    </div>
+
+    <div class="faq-item">
+        <div class="faq-question">මගේ Files ආරක්ෂිතද? <span>+</span></div>
+        <div class="faq-answer">අනිවාර්යයෙන්ම. ඔබ Upload කරන සියලුම Files පැය 24ක් ඇතුළත අපගේ Server එකෙන් ස්වයංක්‍රීයව මැකී යයි.</div>
+    </div>
+
+    <div class="faq-item">
+        <div class="faq-question">දිනකට Files කීයක් Convert කළ හැකිද? <span>+</span></div>
+        <div class="faq-answer">දැනට කිසිදු සීමාවක් නොමැත. ඔබට අවශ්‍ය ඕනෑම ප්‍රමාණයක් භාවිතා කළ හැක.</div>
+    </div>
+</div>
+
+<script>
+    document.querySelectorAll('.faq-question').forEach(item => {
+        item.addEventListener('click', () => {
+            item.parentElement.classList.toggle('active');
+        });
+    });
+</script>
+
+</body>
+</html>

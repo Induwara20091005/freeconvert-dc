@@ -12,24 +12,13 @@
         :root {
             --primary-color: #667eea;
             --secondary-color: #764ba2;
-            --bg-primary: #ffffff;
-            --bg-secondary: #f8f9ff;
-            --text-primary: #2c3e50;
-            --text-secondary: #666;
-            --border-color: #e0e0e0;
-            --shadow: rgba(0, 0, 0, 0.1);
-            --card-bg: #ffffff;
-            --btn-grad: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }
-
-        [data-theme="dark"] {
-            --bg-primary: #1a1a2e;
-            --bg-secondary: #16213e;
-            --text-primary: #eaeaea;
-            --text-secondary: #b8b8b8;
-            --border-color: #2d3748;
-            --shadow: rgba(0, 0, 0, 0.5);
-            --card-bg: #16213e;
+            --bg-primary: #0f172a; /* Dark Blue-Black Background */
+            --bg-secondary: #1e293b;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --border-color: #334155;
+            --card-bg: #1e293b;
+            --btn-grad: linear-gradient(135deg, #ef4444 0%, #991b1b 100%); /* Red Gradient like Money Heist */
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -38,269 +27,304 @@
             font-family: 'Poppins', sans-serif;
             background-color: var(--bg-primary);
             color: var(--text-primary);
-            line-height: 1.6;
-            transition: all 0.4s ease;
             overflow-x: hidden;
+            transition: 0.3s;
         }
 
-        /* Anti-Adblock Overlay */
-        #adblock-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.95); display: none;
-            justify-content: center; align-items: center; z-index: 100000;
-            backdrop-filter: blur(10px);
-        }
-        .adblock-box {
-            background: var(--card-bg); padding: 40px; border-radius: 24px;
-            text-align: center; max-width: 450px; border: 2px solid #ff4d4d;
-        }
-
-        /* Security Verification Overlay */
-        #verify-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: var(--bg-primary); display: flex;
-            flex-direction: column; justify-content: center; align-items: center;
-            z-index: 99999;
+        /* Sidebar Style */
+        .sidebar {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 2000;
+            top: 0;
+            left: 0;
+            background-color: #000000;
+            overflow-x: hidden;
+            transition: 0.5s ease;
+            padding-top: 60px;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.5);
         }
 
-        /* Main Site Content (Hidden initially) */
-        #main-wrapper-content { display: none; }
+        .sidebar-header {
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid #222;
+        }
 
+        .sidebar-links {
+            padding: 20px 10px;
+        }
+
+        .sidebar-links a {
+            padding: 15px 20px;
+            text-decoration: none;
+            font-size: 16px;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 10px;
+            background: #111;
+            border-radius: 12px;
+            transition: 0.3s;
+            border: 1px solid #222;
+        }
+
+        .sidebar-links a:hover {
+            background: #ef4444;
+            transform: scale(1.02);
+        }
+
+        .sidebar-links a i-emoji {
+            font-size: 20px;
+            background: rgba(239, 68, 68, 0.1);
+            padding: 8px;
+            border-radius: 10px;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 25px;
+            font-size: 30px;
+            cursor: pointer;
+            color: #ef4444;
+        }
+
+        /* Nav & Main UI */
         nav {
-            background: var(--bg-primary);
+            background: rgba(15, 23, 42, 0.8);
             backdrop-filter: blur(10px);
-            padding: 1rem 0;
-            box-shadow: 0 4px 20px var(--shadow);
+            padding: 15px 20px;
             position: sticky;
             top: 0;
             z-index: 1000;
-            width: 100%;
+            border-bottom: 1px solid var(--border-color);
         }
 
         .nav-container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
+        .menu-toggle {
+            font-size: 24px;
+            cursor: pointer;
+            background: #1e293b;
+            padding: 8px 12px;
+            border-radius: 8px;
+        }
+
         .logo {
-            font-size: 1.6rem;
+            font-size: 1.5rem;
             font-weight: 800;
-            background: var(--btn-grad);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
             text-decoration: none;
+            color: white;
             display: flex;
             align-items: center;
             gap: 10px;
         }
 
-        .logo-icon {
-            width: 35px; height: 35px; background: var(--btn-grad);
-            border-radius: 8px; display: flex; align-items: center;
-            justify-content: center; color: white; font-size: 1.2rem;
-            -webkit-text-fill-color: white;
+        .hero {
+            padding: 80px 20px;
+            text-align: center;
+            background: radial-gradient(circle, #1e293b 0%, #0f172a 100%);
         }
 
-        .nav-links { display: flex; gap: 1rem; align-items: center; }
-        .nav-links a {
-            color: var(--text-primary); text-decoration: none;
-            font-weight: 500; font-size: 0.9rem; padding: 0.5rem 0.8rem;
-            border-radius: 8px; transition: 0.3s;
-        }
-        .nav-links a:hover { background: var(--bg-secondary); color: var(--primary-color); }
-
-        .theme-toggle {
-            background: var(--bg-secondary); border: 1px solid var(--border-color);
-            width: 40px; height: 40px; border-radius: 50%; cursor: pointer;
-            display: flex; align-items: center; justify-content: center; font-size: 1.2rem;
-        }
-
-        .hero { text-align: center; padding: 80px 20px; background: var(--bg-secondary); width: 100%; }
-        .hero-content { max-width: 800px; margin: 0 auto; }
-        .hero h1 { font-size: 3rem; font-weight: 800; margin-bottom: 15px; letter-spacing: -1px; }
-        
-        .search-container { max-width: 600px; margin: 30px auto 0; }
         .search-bar {
-            width: 100%; padding: 18px 30px; border-radius: 50px;
-            border: 1px solid var(--border-color); background: var(--card-bg);
-            color: var(--text-primary); outline: none; font-size: 1rem;
-            box-shadow: 0 10px 25px var(--shadow);
+            width: 100%;
+            max-width: 500px;
+            padding: 15px 25px;
+            border-radius: 30px;
+            border: 2px solid var(--border-color);
+            background: #0f172a;
+            color: white;
+            margin-top: 20px;
         }
 
-        .main-wrapper { max-width: 1200px; margin: 60px auto; padding: 0 20px; }
-        .section-title { text-align: center; margin-bottom: 40px; font-size: 1.8rem; font-weight: 700; }
+        .main-wrapper {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
 
-        .converter-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 30px; justify-content: center; }
+        .converter-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
 
         .card {
-            background: var(--card-bg); padding: 40px 30px; border-radius: 24px;
-            text-align: center; box-shadow: 0 15px 35px var(--shadow);
-            border: 1px solid var(--border-color); transition: all 0.3s ease;
-            display: flex; flex-direction: column; align-items: center;
+            background: var(--card-bg);
+            padding: 40px 20px;
+            border-radius: 20px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+            transition: 0.3s;
+            position: relative;
         }
-        .card:hover { transform: translateY(-10px); border-color: var(--primary-color); }
 
-        .icon-box {
-            width: 80px; height: 80px; background: var(--bg-secondary);
-            border-radius: 20px; display: flex; align-items: center;
-            justify-content: center; font-size: 3rem; margin-bottom: 20px;
+        .card:hover {
+            border-color: #ef4444;
+            transform: translateY(-5px);
         }
+
+        .card h2 { margin: 15px 0; font-size: 1.4rem; }
 
         .start-btn {
-            background: var(--btn-grad); color: white; border: none;
-            padding: 14px 0; border-radius: 12px; font-weight: 700;
-            cursor: pointer; width: 100%; text-transform: uppercase; transition: 0.3s;
+            background: var(--btn-grad);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
         }
 
-        .features-section { margin-top: 80px; padding: 60px 40px; background: var(--bg-secondary); border-radius: 40px; text-align: center; }
-        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; margin-top: 40px; }
-        .f-item h3 { color: var(--primary-color); margin-bottom: 10px; }
+        /* Footer Fixes */
+        footer {
+            background: #000;
+            padding: 60px 20px 20px;
+            margin-top: 80px;
+            border-top: 1px solid #222;
+        }
 
-        footer { background: var(--bg-primary); padding: 80px 20px 30px; border-top: 1px solid var(--border-color); }
-        .footer-container { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 50px; }
-        .footer-bottom { max-width: 1200px; margin: 60px auto 0; text-align: center; padding-top: 30px; border-top: 1px solid var(--border-color); color: var(--text-secondary); }
+        .footer-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+        }
 
-        @media (max-width: 768px) { .nav-links { display: none; } .hero h1 { font-size: 2.2rem; } }
+        .footer-section h3 { margin-bottom: 20px; color: #ef4444; }
+        
+        .footer-section a {
+            display: block; /* Links වැලක් වගේ එන්නේ නැති වෙන්න */
+            color: var(--text-secondary);
+            text-decoration: none;
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+
+        .footer-section a:hover { color: white; }
+
+        /* Security Overlays */
+        #verify-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #0f172a; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; z-index: 9999;
+        }
     </style>
 </head>
-<body data-theme="dark">
-
-    <div id="adblock-overlay">
-        <div class="adblock-box">
-            <h2 style="color: #ff4d4d; margin-bottom: 15px;">Ad-Blocker Detected!</h2>
-            <p>To keep our service free, please disable your Ad-blocker/Brave Shields and refresh the page.</p>
-            <button class="start-btn" style="margin-top: 20px;" onclick="location.reload()">Refresh Page</button>
-        </div>
-    </div>
+<body>
 
     <div id="verify-overlay">
-        <h2 style="margin-bottom: 20px;">🔄 Free Convert</h2>
+        <h1 style="margin-bottom:20px;">🔄 Free Convert</h1>
         <div class="cf-turnstile" data-sitekey="0x4AAAAAACNKu8R5F_6XYIB2" data-callback="onSecurityPass"></div>
     </div>
 
-    <div id="main-wrapper-content">
+    <div id="mySidebar" class="sidebar">
+        <span class="close-btn" onclick="closeNav()">&times;</span>
+        <div class="sidebar-header">
+            <h2 style="color: #ef4444;">MENU</h2>
+        </div>
+        <div class="sidebar-links">
+            <a href="#"><span style="background:#222; padding:5px 10px; border-radius:8px;">🏠</span> Home</a>
+            <a href="#"><span style="background:#222; padding:5px 10px; border-radius:8px;">🤖</span> Mini Bot</a>
+            <a href="#"><span style="background:#222; padding:5px 10px; border-radius:8px;">🔥</span> Main Bot</a>
+            <a href="#"><span style="background:#222; padding:5px 10px; border-radius:8px;">ℹ️</span> About Us</a>
+            <a href="#"><span style="background:#222; padding:5px 10px; border-radius:8px;">📞</span> Contact</a>
+            <a href="#"><span style="background:#222; padding:5px 10px; border-radius:8px;">🛡️</span> Privacy</a>
+            <a href="#"><span style="background:#222; padding:5px 10px; border-radius:8px;">📢</span> Channel</a>
+        </div>
+    </div>
+
+    <div id="main-content" style="display:none;">
         <nav>
             <div class="nav-container">
-                <a href="#" class="logo"><div class="logo-icon">🔄</div> Free Convert</a>
-                <div class="nav-links">
-                    <a href="#">Home</a>
-                    <a href="#converters">Converters</a>
-                    <a href="about.html">About Us</a>
-                    <a href="contact.html">Contact</a>
-                    <a href="privacy.html">Privacy</a>
-                </div>
-                <button class="theme-toggle" onclick="toggleTheme()"><span id="theme-icon">☀️</span></button>
+                <div class="menu-toggle" onclick="openNav()">☰</div>
+                <a href="#" class="logo">🔄 Free Convert</a>
+                <div style="font-size: 20px; cursor: pointer;">🌙</div>
             </div>
         </nav>
 
-        <section class="hero">
-            <div class="hero-content">
-                <h1>🚀 Smart File Converter</h1>
-                <p>පහසුවෙන් සහ වේගයෙන් ඕනෑම ගොනුවක් වෙනත් ආකෘතියකට හරවා ගන්න.</p>
-                <div class="search-container">
-                    <input type="text" id="toolSearch" class="search-bar" placeholder="සෙවුම් කරන්න (උදා: mp3, pdf, image)..." onkeyup="filterTools()">
-                </div>
-            </div>
-        </section>
+        <header class="hero">
+            <h1>The Ultimate File Converter</h1>
+            <p style="color:var(--text-secondary)">Convert documents and media safely.</p>
+            <input type="text" class="search-bar" placeholder="Search for tools (e.g. PDF, MP3)">
+        </header>
 
         <div class="main-wrapper">
-            <h2 class="section-title" id="converters">Available Converters</h2>
-            <div class="converter-grid" id="toolGrid">
-                <div class="card" data-name="audio music mp3 wav">
-                    <div class="icon-box">🎵</div>
-                    <h2>Audio Converter</h2>
-                    <p>MP3, WAV, AAC ඇතුළු ඕනෑම හඬ ගොනුවක් වෙනස් කරන්න.</p>
-                    <button class="start-btn" onclick="location.href='c-audio.html'">START</button>
-                </div>
-                <div class="card" data-name="video movie mp4 mkv">
-                    <div class="icon-box">🎬</div>
-                    <h2>Video Converter</h2>
-                    <p>වීඩියෝ ගොනු MP4, MKV හෝ WEBM බවට පත් කරන්න.</p>
-                    <button class="start-btn" onclick="location.href='c-video.html'">START</button>
-                </div>
-                <div class="card" data-name="image photo png jpeg webp">
-                    <div class="icon-box">🖼️</div>
-                    <h2>Image Converter</h2>
-                    <p>ඡායාරූප වල Quality එක අඩු නොවී formats වෙනස් කරන්න.</p>
-                    <button class="start-btn" onclick="location.href='c-img.html'">START</button>
-                </div>
-                <div class="card" data-name="pdf document word file">
-                    <div class="icon-box">📄</div>
-                    <h2>Document to PDF</h2>
-                    <p>Word, Text ගොනු ඉතා ඉක්මනින් PDF බවට හරවන්න.</p>
-                    <button class="start-btn" onclick="location.href='c-file.html'">START</button>
-                </div>
+            <div id="ad-container" style="text-align:center; margin-bottom:30px; min-height:90px;">
+                <p style="font-size:10px; color:#444;">ADVERTISEMENT</p>
             </div>
 
-            <section class="features-section">
-                <h2>✨ Why Choose Free Convert?</h2>
-                <div class="features-grid">
-                    <div class="f-item"><span>⚡</span><h3>Lightning Fast</h3><p>තත්පර කිහිපයකින් ඔබගේ ගොනු පරිවර්තනය වේ.</p></div>
-                    <div class="f-item"><span>🔒</span><h3>100% Secure</h3><p>ඔබේ ගොනු වල ආරක්ෂාව සම්පූර්ණයෙන්ම සහතිකයි.</p></div>
-                    <div class="f-item"><span>🆓</span><h3>Completely Free</h3><p>කිසිදු මුදලක් අය නොකෙරේ. සැමදා නොමිලේ.</p></div>
+            <div class="converter-grid">
+                <div class="card">
+                    <div style="font-size:3.5rem">📄</div>
+                    <h2>PDF Tools</h2>
+                    <button class="start-btn" onclick="location.href='pdf.html'">START ➔</button>
                 </div>
-            </section>
+                <div class="card">
+                    <div style="font-size:3.5rem">🎵</div>
+                    <h2>Audio Converter</h2>
+                    <button class="start-btn" onclick="location.href='audio.html'">START ➔</button>
+                </div>
+                <div class="card">
+                    <div style="font-size:3.5rem">🎬</div>
+                    <h2>Video Converter</h2>
+                    <button class="start-btn" onclick="location.href='video.html'">START ➔</button>
+                </div>
+            </div>
         </div>
 
         <footer>
-            <div class="footer-container">
-                <div class="footer-section"><h3>🎯 Free Convert</h3><p>ඔබේ සියලුම file conversion අවශ්‍යතා සඳහා ඇති හොඳම විසඳුම.</p></div>
-                <div class="footer-section"><h3>Quick Links</h3><a href="#">Home</a><a href="about.html">About Us</a><a href="privacy.html">Privacy Policy</a></div>
-                <div class="footer-section"><h3>Support</h3><a href="contact.html">Contact Us</a><a href="#">FAQ</a><a href="#">Terms of Use</a></div>
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h3>🔄 Free Convert</h3>
+                    <p>ඔබේ සියලුම file conversion අවශ්‍යතා සඳහා ඇති හොඳම විසඳුම.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <a href="#">Home</a>
+                    <a href="#">About Us</a>
+                    <a href="#">Privacy Policy</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Support</h3>
+                    <a href="#">Contact Us</a>
+                    <a href="#">FAQ</a>
+                    <a href="#">Terms of Use</a>
+                </div>
             </div>
-            <div class="footer-bottom"><p>&copy; 2026 Induwara Deshan. All rights reserved. ❤️</p></div>
+            <div style="text-align:center; margin-top:50px; padding-top:20px; border-top:1px solid #111; color:#444;">
+                <p>&copy; 2026 Induwara Deshan. All rights reserved. ❤️</p>
+            </div>
         </footer>
     </div>
 
     <script>
-        // 1. Cloudflare Callback
-        async function onSecurityPass(token) {
-            if (await checkAdBlock()) {
-                document.getElementById('adblock-overlay').style.display = 'flex';
-                document.getElementById('verify-overlay').style.display = 'none';
-            } else {
-                document.getElementById('verify-overlay').style.display = 'none';
-                document.getElementById('main-wrapper-content').style.display = 'block';
-            }
+        function onSecurityPass() {
+            document.getElementById('verify-overlay').style.display = 'none';
+            document.getElementById('main-content').style.display = 'block';
         }
 
-        // 2. AdBlock Detection
-        async function checkAdBlock() {
-            const adBait = document.createElement('div');
-            adBait.className = 'adsbox ad-unit';
-            adBait.style.cssText = 'position:absolute;left:-999px;width:1px;height:1px;';
-            document.body.appendChild(adBait);
-            const isBlocked = adBait.offsetHeight === 0;
-            document.body.removeChild(adBait);
-            return isBlocked;
+        function openNav() {
+            document.getElementById("mySidebar").style.width = "280px";
         }
 
-        // 3. Theme Toggle Function
-        function toggleTheme() {
-            const body = document.body;
-            const icon = document.getElementById('theme-icon');
-            const currentTheme = body.getAttribute('data-theme');
-            if (currentTheme === 'light') {
-                body.setAttribute('data-theme', 'dark');
-                icon.textContent = '☀️';
-            } else {
-                body.setAttribute('data-theme', 'light');
-                icon.textContent = '🌙';
-            }
-        }
-
-        // 4. Search Function
-        function filterTools() {
-            let input = document.getElementById('toolSearch').value.toLowerCase();
-            let cards = document.getElementsByClassName('card');
-            for (let i = 0; i < cards.length; i++) {
-                let name = cards[i].getAttribute('data-name');
-                cards[i].style.display = name.includes(input) ? "flex" : "none";
-            }
+        function closeNav() {
+            document.getElementById("mySidebar").style.width = "0";
         }
     </script>
 </body>

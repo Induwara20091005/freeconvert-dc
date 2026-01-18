@@ -12,23 +12,62 @@
         :root {
             --primary-color: #667eea;
             --secondary-color: #764ba2;
-            --bg-primary: #0f172a; /* Dark Blue-Black Background */
+            --bg-primary: #0f172a;
             --bg-secondary: #1e293b;
             --text-primary: #f8fafc;
             --text-secondary: #94a3b8;
             --border-color: #334155;
             --card-bg: #1e293b;
-            --btn-grad: linear-gradient(135deg, #ef4444 0%, #991b1b 100%); /* Red Gradient like Money Heist */
+            --btn-grad: linear-gradient(135deg, #ef4444 0%, #dc2626 50%, #991b1b 100%);
+            --accent-red: #ef4444;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
         
         body {
             font-family: 'Poppins', sans-serif;
             background-color: var(--bg-primary);
             color: var(--text-primary);
             overflow-x: hidden;
-            transition: 0.3s;
+            position: relative;
+        }
+
+        /* Animated Background Particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: rgba(239, 68, 68, 0.3);
+            border-radius: 50%;
+            animation: float 15s infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% {
+                transform: translateY(-100vh) translateX(100px);
+                opacity: 0;
+            }
         }
 
         /* Sidebar Style */
@@ -39,17 +78,24 @@
             z-index: 2000;
             top: 0;
             left: 0;
-            background-color: #000000;
+            background: linear-gradient(180deg, #000000 0%, #1a0000 100%);
             overflow-x: hidden;
-            transition: 0.5s ease;
+            transition: 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             padding-top: 60px;
-            box-shadow: 2px 0 10px rgba(0,0,0,0.5);
+            box-shadow: 2px 0 30px rgba(239, 68, 68, 0.3);
         }
 
         .sidebar-header {
             padding: 20px;
             text-align: center;
-            border-bottom: 1px solid #222;
+            border-bottom: 1px solid rgba(239, 68, 68, 0.2);
+        }
+
+        .sidebar-header h2 {
+            color: #ef4444;
+            font-weight: 800;
+            letter-spacing: 3px;
+            text-shadow: 0 0 20px rgba(239, 68, 68, 0.5);
         }
 
         .sidebar-links {
@@ -65,22 +111,30 @@
             align-items: center;
             gap: 15px;
             margin-bottom: 10px;
-            background: #111;
+            background: rgba(255, 255, 255, 0.05);
             border-radius: 12px;
-            transition: 0.3s;
-            border: 1px solid #222;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(239, 68, 68, 0.1);
+            backdrop-filter: blur(10px);
         }
 
         .sidebar-links a:hover {
-            background: #ef4444;
-            transform: scale(1.02);
+            background: var(--btn-grad);
+            transform: translateX(10px);
+            border-color: #ef4444;
+            box-shadow: 0 5px 20px rgba(239, 68, 68, 0.4);
         }
 
-        .sidebar-links a i-emoji {
-            font-size: 20px;
-            background: rgba(239, 68, 68, 0.1);
-            padding: 8px;
+        .sidebar-links a span {
+            background: rgba(239, 68, 68, 0.2);
+            padding: 8px 12px;
             border-radius: 10px;
+            transition: 0.3s;
+        }
+
+        .sidebar-links a:hover span {
+            background: rgba(255, 255, 255, 0.2);
+            transform: rotate(360deg);
         }
 
         .close-btn {
@@ -90,17 +144,24 @@
             font-size: 30px;
             cursor: pointer;
             color: #ef4444;
+            transition: 0.3s;
+        }
+
+        .close-btn:hover {
+            transform: rotate(90deg);
+            color: #fff;
         }
 
         /* Nav & Main UI */
         nav {
-            background: rgba(15, 23, 42, 0.8);
-            backdrop-filter: blur(10px);
+            background: rgba(15, 23, 42, 0.9);
+            backdrop-filter: blur(20px);
             padding: 15px 20px;
             position: sticky;
             top: 0;
             z-index: 1000;
-            border-bottom: 1px solid var(--border-color);
+            border-bottom: 1px solid rgba(239, 68, 68, 0.2);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
         }
 
         .nav-container {
@@ -114,9 +175,17 @@
         .menu-toggle {
             font-size: 24px;
             cursor: pointer;
-            background: #1e293b;
-            padding: 8px 12px;
-            border-radius: 8px;
+            background: rgba(239, 68, 68, 0.1);
+            padding: 10px 14px;
+            border-radius: 10px;
+            transition: 0.3s;
+            border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+
+        .menu-toggle:hover {
+            background: var(--btn-grad);
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(239, 68, 68, 0.4);
         }
 
         .logo {
@@ -127,60 +196,152 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            text-shadow: 0 0 20px rgba(239, 68, 68, 0.5);
+            transition: 0.3s;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
         }
 
         .hero {
-            padding: 80px 20px;
+            padding: 100px 20px;
             text-align: center;
-            background: radial-gradient(circle, #1e293b 0%, #0f172a 100%);
+            background: radial-gradient(circle at center, rgba(239, 68, 68, 0.1) 0%, transparent 70%);
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ffffff 0%, #ef4444 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            animation: fadeInDown 1s ease;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero p {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            animation: fadeIn 1s ease 0.3s both;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         .search-bar {
             width: 100%;
             max-width: 500px;
-            padding: 15px 25px;
+            padding: 18px 30px;
             border-radius: 30px;
-            border: 2px solid var(--border-color);
-            background: #0f172a;
+            border: 2px solid rgba(239, 68, 68, 0.3);
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(10px);
             color: white;
-            margin-top: 20px;
+            margin-top: 30px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            animation: fadeIn 1s ease 0.6s both;
+        }
+
+        .search-bar:focus {
+            outline: none;
+            border-color: #ef4444;
+            box-shadow: 0 0 30px rgba(239, 68, 68, 0.3);
+            transform: scale(1.02);
+        }
+
+        .search-bar::placeholder {
+            color: var(--text-secondary);
         }
 
         .main-wrapper {
             max-width: 1100px;
-            margin: 40px auto;
+            margin: 60px auto;
             padding: 0 20px;
+            position: relative;
+            z-index: 1;
         }
 
         .converter-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
+            gap: 30px;
+            animation: fadeIn 1s ease 0.9s both;
         }
 
         .card {
-            background: var(--card-bg);
-            padding: 40px 20px;
-            border-radius: 20px;
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(20px);
+            padding: 50px 20px;
+            border-radius: 24px;
             text-align: center;
-            border: 1px solid var(--border-color);
-            transition: 0.3s;
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(239, 68, 68, 0.1), transparent);
+            transition: 0.5s;
+        }
+
+        .card:hover::before {
+            left: 100%;
         }
 
         .card:hover {
             border-color: #ef4444;
-            transform: translateY(-5px);
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 60px rgba(239, 68, 68, 0.3);
+            background: rgba(30, 41, 59, 0.8);
         }
 
-        .card h2 { margin: 15px 0; font-size: 1.4rem; }
+        .card > div:first-child {
+            font-size: 4rem;
+            transition: 0.5s;
+            display: inline-block;
+        }
+
+        .card:hover > div:first-child {
+            transform: scale(1.2) rotateY(360deg);
+        }
+
+        .card h2 { 
+            margin: 20px 0; 
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
 
         .start-btn {
             background: var(--btn-grad);
             color: white;
             border: none;
-            padding: 12px 30px;
-            border-radius: 10px;
+            padding: 14px 30px;
+            border-radius: 12px;
             font-weight: 600;
             cursor: pointer;
             width: 100%;
@@ -188,14 +349,48 @@
             justify-content: center;
             align-items: center;
             gap: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(239, 68, 68, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .start-btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .start-btn:hover::after {
+            width: 300px;
+            height: 300px;
+        }
+
+        .start-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(239, 68, 68, 0.5);
+        }
+
+        .start-btn:active {
+            transform: translateY(0);
         }
 
         /* Footer Fixes */
         footer {
-            background: #000;
+            background: linear-gradient(180deg, #0f172a 0%, #000000 100%);
             padding: 60px 20px 20px;
-            margin-top: 80px;
-            border-top: 1px solid #222;
+            margin-top: 100px;
+            border-top: 1px solid rgba(239, 68, 68, 0.2);
+            position: relative;
+            z-index: 1;
         }
 
         .footer-grid {
@@ -206,44 +401,118 @@
             gap: 40px;
         }
 
-        .footer-section h3 { margin-bottom: 20px; color: #ef4444; }
+        .footer-section h3 { 
+            margin-bottom: 20px; 
+            color: #ef4444;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
         
         .footer-section a {
-            display: block; /* Links වැලක් වගේ එන්නේ නැති වෙන්න */
+            display: block;
             color: var(--text-secondary);
             text-decoration: none;
             margin-bottom: 12px;
             font-size: 14px;
+            transition: 0.3s;
         }
 
-        .footer-section a:hover { color: white; }
+        .footer-section a:hover { 
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .footer-section p {
+            color: var(--text-secondary);
+            font-size: 14px;
+            line-height: 1.6;
+        }
 
         /* Security Overlays */
         #verify-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #0f172a; display: flex; flex-direction: column;
-            justify-content: center; align-items: center; z-index: 9999;
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%;
+            background: linear-gradient(135deg, #0f172a 0%, #1a0000 100%);
+            display: flex; 
+            flex-direction: column;
+            justify-content: center; 
+            align-items: center; 
+            z-index: 9999;
+        }
+
+        #verify-overlay h1 {
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ffffff 0%, #ef4444 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        /* Ad Container */
+        #ad-container {
+            text-align: center;
+            margin-bottom: 40px;
+            min-height: 90px;
+            background: rgba(30, 41, 59, 0.3);
+            border-radius: 16px;
+            border: 1px dashed rgba(239, 68, 68, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #ad-container p {
+            font-size: 10px;
+            color: #444;
+            letter-spacing: 2px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .card {
+                padding: 40px 15px;
+            }
+
+            .converter-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Animated Background Particles -->
+    <div class="particles" id="particles"></div>
 
     <div id="verify-overlay">
-        <h1 style="margin-bottom:20px;">🔄 Free Convert</h1>
+        <h1>🔄 Free Convert</h1>
         <div class="cf-turnstile" data-sitekey="0x4AAAAAACNKu8R5F_6XYIB2" data-callback="onSecurityPass"></div>
     </div>
 
     <div id="mySidebar" class="sidebar">
         <span class="close-btn" onclick="closeNav()">&times;</span>
         <div class="sidebar-header">
-            <h2 style="color: #ef4444;">MENU</h2>
+            <h2>MENU</h2>
         </div>
         <div class="sidebar-links">
-            <a href="index.html"><span style="background:#222; padding:5px 10px; border-radius:8px;">🏠</span> Home</a>
-            <a href="about.html"><span style="background:#222; padding:5px 10px; border-radius:8px;">ℹ️</span> About Us</a>
-            <a href="contact.html"><span style="background:#222; padding:5px 10px; border-radius:8px;">📞</span> Contact</a>
-            <a href="privacy.html"><span style="background:#222; padding:5px 10px; border-radius:8px;">🛡️</span> Privacy</a>
-            <a href="https://whatsapp.com/channel/0029Vb2IpHi84Om330BkM63b"><span style="background:#222; padding:5px 10px; border-radius:8px;">📢</span> Channel</a>
+            <a href="index.html"><span>🏠</span> Home</a>
+            <a href="about.html"><span>ℹ️</span> About Us</a>
+            <a href="contact.html"><span>📞</span> Contact</a>
+            <a href="privacy.html"><span>🛡️</span> Privacy</a>
+            <a href="https://whatsapp.com/channel/0029Vb2IpHi84Om330BkM63b"><span>📢</span> Channel</a>
         </div>
     </div>
 
@@ -258,28 +527,28 @@
 
         <header class="hero">
             <h1>The Ultimate File Converter</h1>
-            <p style="color:var(--text-secondary)">Convert documents and media safely.</p>
+            <p>Convert documents and media safely.</p>
             <input type="text" class="search-bar" placeholder="Search for tools (e.g. PDF, MP3)">
         </header>
 
         <div class="main-wrapper">
-            <div id="ad-container" style="text-align:center; margin-bottom:30px; min-height:90px;">
-                <p style="font-size:10px; color:#444;">ADVERTISEMENT</p>
+            <div id="ad-container">
+                <p>ADVERTISEMENT</p>
             </div>
 
             <div class="converter-grid">
                 <div class="card">
-                    <div style="font-size:3.5rem">🖼️</div>
+                    <div>🖼️</div>
                     <h2>Image Converter</h2>
                     <button class="start-btn" onclick="location.href='c-img.html'">START ➔</button>
                 </div>
                 <div class="card">
-                    <div style="font-size:3.5rem">🎵</div>
+                    <div>🎵</div>
                     <h2>Audio Converter</h2>
                     <button class="start-btn" onclick="location.href='c-audio.html'">START ➔</button>
                 </div>
                 <div class="card">
-                    <div style="font-size:3.5rem">🎬</div>
+                    <div>🎬</div>
                     <h2>Video Converter</h2>
                     <button class="start-btn" onclick="location.href='c-video.html'">START ➔</button>
                 </div>
@@ -305,18 +574,21 @@
                     <a href="terms.html">Terms of Use</a>
                 </div>
             </div>
-            <div style="text-align:center; margin-top:50px; padding-top:20px; border-top:1px solid #111; color:#444;">
+            <div style="text-align:center; margin-top:50px; padding-top:20px; border-top:1px solid rgba(239, 68, 68, 0.1); color:#666;">
                 <p>&copy; 2026 Induwara Deshan. All rights reserved. ❤️</p>
             </div>
         </footer>
     </div>
 
     <script>
+        // Security verification
         function onSecurityPass() {
             document.getElementById('verify-overlay').style.display = 'none';
             document.getElementById('main-content').style.display = 'block';
+            createParticles();
         }
 
+        // Sidebar navigation
         function openNav() {
             document.getElementById("mySidebar").style.width = "280px";
         }
@@ -324,9 +596,41 @@
         function closeNav() {
             document.getElementById("mySidebar").style.width = "0";
         }
+
+        // Create animated particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 30;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Search functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchBar = document.querySelector('.search-bar');
+            if (searchBar) {
+                searchBar.addEventListener('input', function(e) {
+                    const searchTerm = e.target.value.toLowerCase();
+                    const cards = document.querySelectorAll('.card');
+                    
+                    cards.forEach(card => {
+                        const title = card.querySelector('h2').textContent.toLowerCase();
+                        if (title.includes(searchTerm)) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = searchTerm === '' ? 'block' : 'none';
+                        }
+                    });
+                });
+            }
+        });
     </script>
 </body>
 </html>
-
-
-

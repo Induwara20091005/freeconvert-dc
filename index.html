@@ -7,6 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    <script src="https://pl28510688.effectivegatecpm.com/03/49/dd/0349ddaf17f961afff7749248ebb30ac.js"></script>
     
     <style>
         :root {
@@ -114,6 +115,11 @@
 
         body.light-theme #ad-container {
             background: rgba(248, 250, 252, 0.6);
+            border-color: rgba(99, 102, 241, 0.2);
+        }
+
+        body.light-theme #ad-container::before {
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
         }
 
         body.light-theme footer {
@@ -591,14 +597,34 @@
         #ad-container {
             text-align: center;
             margin-bottom: 50px;
-            min-height: 100px;
+            min-height: 250px;
             background: rgba(22, 27, 51, 0.4);
             border-radius: 20px;
             border: 1px dashed var(--border);
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             backdrop-filter: blur(10px);
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #ad-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--secondary), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
         }
 
         #ad-container p {
@@ -606,6 +632,15 @@
             color: var(--text-secondary);
             letter-spacing: 3px;
             opacity: 0.5;
+            margin-bottom: 15px;
+        }
+
+        /* Ad content styling */
+        #ad-container > div,
+        #ad-container > ins,
+        #ad-container iframe {
+            max-width: 100% !important;
+            margin: 0 auto;
         }
 
         /* Footer */
@@ -839,7 +874,7 @@
     </div>
 
     <div id="verify-overlay">
-        <h1>Free Convert</h1>
+        <h1>🔄 Free Convert</h1>
         <div class="cf-turnstile" data-sitekey="0x4AAAAAACNKu8R5F_6XYIB2" data-callback="onSecurityPass"></div>
     </div>
 
@@ -861,7 +896,7 @@
         <nav>
             <div class="nav-container">
                 <div class="menu-toggle" onclick="openNav()">☰</div>
-                <a href="index.html" class="logo">Free Convert</a>
+                <a href="#" class="logo">🔄 Free Convert</a>
                 <div class="theme-toggle">🌙</div>
             </div>
         </nav>
@@ -895,6 +930,7 @@
         <div class="main-wrapper">
             <div id="ad-container">
                 <p>ADVERTISEMENT</p>
+                <!-- Ad will load here automatically from the script -->
             </div>
 
             <div class="converter-grid">

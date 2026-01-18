@@ -20,16 +20,17 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Poppins', sans-serif; background-color: var(--bg-primary); color: var(--text-primary); overflow: hidden; }
 
-        /* Anti-Adblock Popup */
+        /* Anti-Adblock / Popup Blocker Overlay */
         #adblock-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.98); display: none;
+            background: rgba(10, 10, 25, 0.99); display: none;
             justify-content: center; align-items: center; z-index: 100000;
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(15px);
         }
         .adblock-box {
             background: var(--card-bg); padding: 40px; border-radius: 20px;
-            text-align: center; max-width: 450px; border: 2px solid #ff4d4d;
+            text-align: center; max-width: 500px; border: 2px solid #ff4d4d;
+            box-shadow: 0 0 30px rgba(255, 77, 77, 0.2);
         }
 
         /* Initial Security Verification Overlay */
@@ -45,23 +46,12 @@
 
         .container { max-width: 1100px; margin: 0 auto; padding: 20px; text-align: center; }
         
-        /* Advertisement Space */
-        .ad-placeholder {
-            background: #0f172a; border: 1px dashed #444; margin: 20px auto;
+        /* Ad Slot Area */
+        .ad-container {
+            min-height: 100px; background: rgba(255,255,255,0.05);
+            border: 1px dashed #444; margin: 20px auto; border-radius: 10px;
             display: flex; align-items: center; justify-content: center;
-            color: #555; font-size: 12px; border-radius: 10px;
         }
-
-        .tool-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px; margin-top: 40px;
-        }
-
-        .tool-card {
-            background: var(--card-bg); padding: 30px; border-radius: 20px;
-            border: 1px solid #2d3748; transition: 0.3s; text-decoration: none; color: inherit;
-        }
-        .tool-card:hover { transform: translateY(-5px); border-color: var(--primary-color); }
 
         .btn {
             background: var(--btn-grad); color: white; padding: 12px 30px;
@@ -74,100 +64,89 @@
 
     <div id="adblock-overlay">
         <div class="adblock-box">
-            <span style="font-size: 4rem;">🚫</span>
-            <h2 style="color: #ff4d4d; margin: 15px 0;">Ad-Blocker Detected!</h2>
-            <p>To keep our service free, please disable your Ad-blocker or Brave Shields and refresh the page.</p>
-            <button class="btn" onclick="location.reload()">Refresh Page</button>
+            <span style="font-size: 5rem;">⚠️</span>
+            <h2 style="color: #ff4d4d; margin: 15px 0;">Ads are Blocked!</h2>
+            <p style="line-height: 1.6;">Our service is free because of advertisements. We detected that you are using a <b>Popup Blocker</b> or <b>Ad-blocker</b>. To continue, please disable it and refresh the page.</p>
+            <button class="btn" onclick="location.reload()">I have disabled it, Refresh</button>
+            <p style="font-size: 12px; margin-top: 15px; color: #888;">Make sure to turn off Edge/Brave Tracking Prevention too.</p>
         </div>
     </div>
 
     <div id="verify-overlay">
         <h1 style="margin-bottom: 10px;">🔄 Free Convert</h1>
-        <p style="margin-bottom: 30px; color: #888;">Please verify you are a human to continue.</p>
-        
+        <p style="margin-bottom: 30px; color: #888;">Verifying your connection...</p>
         <div class="cf-turnstile" data-sitekey="0x4AAAAAACNKu8R5F_6XYIB2" data-callback="onSecurityPass"></div>
     </div>
 
     <div id="main-site-content">
         <div class="container">
-            <div class="ad-placeholder" style="width: 100%; max-width: 728px; height: 90px;">Advertisement Space</div>
-
-            <header style="margin: 50px 0;">
-                <h1 style="font-size: 2.5rem; font-weight: 800;">Fast & Secure Conversion</h1>
-                <p style="color: #888;">Convert your documents, images, and media instantly.</p>
-            </header>
-
-            <div class="tool-grid">
-                <a href="c-file.html" class="tool-card">
-                    <span style="font-size: 3rem;">📄</span>
-                    <h3>Document Tools</h3>
-                    <p>PDF to Word, Image, and Merge files.</p>
-                    <span class="btn">Open Tools</span>
-                </a>
-                <div class="tool-card">
-                    <span style="font-size: 3rem;">🖼️</span>
-                    <h3>Image Tools</h3>
-                    <p>Compress and convert images online.</p>
-                    <span class="btn">Coming Soon</span>
-                </div>
+            <div id="header-ad" class="ad-container">
+                <span style="color:#555">Advertisement</span>
             </div>
 
-            <div class="ad-placeholder" style="width: 300px; height: 250px; margin-top: 40px;">Advertisement Space</div>
+            <header style="margin: 40px 0;">
+                <h1>The Ultimate File Converter</h1>
+                <p>Convert documents and media safely.</p>
+            </header>
+
+            <div style="display: flex; justify-content: center; gap: 20px;">
+                <a href="c-file.html" class="btn">PDF Tools</a>
+                <a href="#" class="btn" style="background: #2d3748;">More Tools</a>
+            </div>
         </div>
     </div>
 
     <script>
-        // 1. Improved AdBlock / Brave Detection
-        async function detectAdBlock() {
-            let blocked = false;
+        // මේක තමයි ප්‍රධාන කොටස - ඇඩ් එකක් Load වෙන්න ඉඩ තියෙනවද කියලා බලනවා
+        function checkAdBlocker() {
+            return new Promise((resolve) => {
+                // 1. Bait Element එකක් හදනවා (Ad-blockers මේවා වහාම මකා දමනවා)
+                const adBait = document.createElement('div');
+                adBait.innerHTML = '&nbsp;';
+                adBait.className = 'adsbox ad-unit header-ads'; 
+                adBait.setAttribute('style', 'position:absolute; left:-999px; top:-999px; height:1px; width:1px;');
+                document.body.appendChild(adBait);
+
+                window.setTimeout(() => {
+                    // ඇඩ් බ්ලොකර් එකක් තිබුණොත් මේ bait එකේ height එක 0 වෙනවා
+                    if (adBait.offsetHeight === 0) {
+                        resolve(true);
+                    } else {
+                        resolve(false);
+                    }
+                    document.body.removeChild(adBait);
+                }, 100);
+            });
+        }
+
+        async function initCheck() {
+            const isBlocked = await checkAdBlocker();
             
-            // Timeout to prevent false positives on slow connections
-            const controller = new AbortController();
-            const timeoutId = setTimeout(() => controller.abort(), 3000); 
-
-            try {
-                const response = await fetch('https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js', { 
-                    method: 'HEAD', 
-                    mode: 'no-cors',
-                    signal: controller.signal
-                });
-                clearTimeout(timeoutId);
-            } catch (e) {
-                // Only block if it's NOT a timeout error
-                if (e.name !== 'AbortError') {
-                    blocked = true;
-                }
-            }
-
-            // Brave Browser check
-            if (navigator.brave && await navigator.brave.isBrave()) {
-                blocked = true;
-            }
-
-            if (blocked) {
+            if (isBlocked) {
                 document.getElementById('adblock-overlay').style.display = 'flex';
                 document.getElementById('verify-overlay').style.display = 'none';
-            } else {
-                // If NO blocker, make sure overlay is hidden
-                document.getElementById('adblock-overlay').style.display = 'none';
+                document.body.style.overflow = 'hidden';
             }
         }
 
-        // 2. Cloudflare Turnstile Callback
         function onSecurityPass(token) {
-            const verifyLayer = document.getElementById('verify-overlay');
-            const mainContent = document.getElementById('main-site-content');
+            // Verification එක ඉවර වුණාම Ad-blocker එකත් බලනවා
+            initCheck().then(() => {
+                const verifyLayer = document.getElementById('verify-overlay');
+                const mainContent = document.getElementById('main-site-content');
 
-            verifyLayer.style.opacity = "0";
-            setTimeout(() => {
-                verifyLayer.style.display = "none";
-                mainContent.style.opacity = "1";
-                mainContent.style.pointerEvents = "auto";
-                document.body.style.overflow = "auto"; // Unlock scrolling
-            }, 500);
+                verifyLayer.style.opacity = "0";
+                setTimeout(() => {
+                    verifyLayer.style.display = "none";
+                    mainContent.style.opacity = "1";
+                    mainContent.style.pointerEvents = "auto";
+                    document.body.style.overflow = "auto";
+                }, 500);
+            });
         }
 
-        window.onload = detectAdBlock;
+        // මුලින්ම check කරනවා
+        window.onload = initCheck;
     </script>
 </body>
 </html>

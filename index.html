@@ -9,6 +9,7 @@
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
     
     <style>
+        /* ඔයාගේ මුල් පිටුවේ තිබූ පෙනුම (CSS) */
         :root {
             --primary-color: #667eea;
             --bg-primary: #1a1a2e;
@@ -18,22 +19,31 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Poppins', sans-serif; background-color: var(--bg-primary); color: var(--text-primary); overflow: hidden; }
+        body { 
+            font-family: 'Poppins', sans-serif; 
+            background: radial-gradient(circle at top right, #1a1a2e, #16213e); 
+            color: var(--text-primary); 
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
 
-        /* Anti-Adblock / Popup Blocker Overlay */
+        /* Anti-Adblock Overlay - මෙය දැන් කලින්ට වඩා ලස්සනයි */
         #adblock-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(10, 10, 25, 0.99); display: none;
+            background: rgba(10, 10, 25, 0.98); display: none;
             justify-content: center; align-items: center; z-index: 100000;
-            backdrop-filter: blur(15px);
+            backdrop-filter: blur(20px);
         }
         .adblock-box {
-            background: var(--card-bg); padding: 40px; border-radius: 20px;
-            text-align: center; max-width: 500px; border: 2px solid #ff4d4d;
-            box-shadow: 0 0 30px rgba(255, 77, 77, 0.2);
+            background: var(--card-bg); padding: 50px; border-radius: 30px;
+            text-align: center; max-width: 500px; border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
         }
 
-        /* Initial Security Verification Overlay */
+        /* Verification Overlay */
         #verify-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: var(--bg-primary); display: flex;
@@ -41,112 +51,100 @@
             z-index: 99999;
         }
 
-        /* Main Content Container */
-        #main-site-content { opacity: 0; pointer-events: none; transition: 0.5s ease; }
-
-        .container { max-width: 1100px; margin: 0 auto; padding: 20px; text-align: center; }
-        
-        /* Ad Slot Area */
-        .ad-container {
-            min-height: 100px; background: rgba(255,255,255,0.05);
-            border: 1px dashed #444; margin: 20px auto; border-radius: 10px;
-            display: flex; align-items: center; justify-content: center;
+        /* සයිට් එකේ ප්‍රධාන කොටස */
+        #main-site-content { 
+            opacity: 0; 
+            transform: translateY(20px);
+            transition: all 0.8s ease; 
+            text-align: center;
+            width: 100%;
+            max-width: 800px;
         }
+
+        h1 { font-size: 3.5rem; font-weight: 800; margin-bottom: 10px; letter-spacing: -1px; }
+        p.subtitle { color: #8892b0; font-size: 1.1rem; margin-bottom: 40px; }
+
+        .btn-container { display: flex; gap: 20px; justify-content: center; }
 
         .btn {
-            background: var(--btn-grad); color: white; padding: 12px 30px;
-            border-radius: 10px; border: none; font-weight: 700; cursor: pointer;
-            text-decoration: none; display: inline-block; margin-top: 20px;
+            background: var(--btn-grad);
+            color: white;
+            padding: 18px 40px;
+            border-radius: 15px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: 0.3s;
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
         }
+        .btn:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(102, 126, 234, 0.5); }
+        .btn.secondary { background: #2d3748; box-shadow: none; }
     </style>
 </head>
 <body>
 
     <div id="adblock-overlay">
         <div class="adblock-box">
-            <span style="font-size: 5rem;">⚠️</span>
-            <h2 style="color: #ff4d4d; margin: 15px 0;">Ads are Blocked!</h2>
-            <p style="line-height: 1.6;">Our service is free because of advertisements. We detected that you are using a <b>Popup Blocker</b> or <b>Ad-blocker</b>. To continue, please disable it and refresh the page.</p>
-            <button class="btn" onclick="location.reload()">I have disabled it, Refresh</button>
-            <p style="font-size: 12px; margin-top: 15px; color: #888;">Make sure to turn off Edge/Brave Tracking Prevention too.</p>
+            <div style="font-size: 4rem; margin-bottom: 20px;">🚫</div>
+            <h2 style="color: #ff4d4d; margin-bottom: 15px;">Ads Are Disabled!</h2>
+            <p style="color: #8892b0; margin-bottom: 30px;">To use our free tools, please disable your Ad-blocker or Brave Shields and refresh the page.</p>
+            <button class="btn" onclick="location.reload()">Refresh & Continue</button>
         </div>
     </div>
 
     <div id="verify-overlay">
-        <h1 style="margin-bottom: 10px;">🔄 Free Convert</h1>
-        <p style="margin-bottom: 30px; color: #888;">Verifying your connection...</p>
+        <h1 style="font-size: 2rem; margin-bottom: 20px;">🔄 Free Convert</h1>
         <div class="cf-turnstile" data-sitekey="0x4AAAAAACNKu8R5F_6XYIB2" data-callback="onSecurityPass"></div>
     </div>
 
     <div id="main-site-content">
-        <div class="container">
-            <div id="header-ad" class="ad-container">
-                <span style="color:#555">Advertisement</span>
-            </div>
-
-            <header style="margin: 40px 0;">
-                <h1>The Ultimate File Converter</h1>
-                <p>Convert documents and media safely.</p>
-            </header>
-
-            <div style="display: flex; justify-content: center; gap: 20px;">
-                <a href="c-file.html" class="btn">PDF Tools</a>
-                <a href="#" class="btn" style="background: #2d3748;">More Tools</a>
-            </div>
+        <h1>The Ultimate File Converter</h1>
+        <p class="subtitle">Convert documents and media safely, fast, and 100% free.</p>
+        
+        <div class="btn-container">
+            <a href="c-file.html" class="btn">PDF Tools</a>
+            <a href="#" class="btn secondary">More Tools</a>
         </div>
     </div>
 
     <script>
-        // මේක තමයි ප්‍රධාන කොටස - ඇඩ් එකක් Load වෙන්න ඉඩ තියෙනවද කියලා බලනවා
-        function checkAdBlocker() {
-            return new Promise((resolve) => {
-                // 1. Bait Element එකක් හදනවා (Ad-blockers මේවා වහාම මකා දමනවා)
-                const adBait = document.createElement('div');
-                adBait.innerHTML = '&nbsp;';
-                adBait.className = 'adsbox ad-unit header-ads'; 
-                adBait.setAttribute('style', 'position:absolute; left:-999px; top:-999px; height:1px; width:1px;');
-                document.body.appendChild(adBait);
-
-                window.setTimeout(() => {
-                    // ඇඩ් බ්ලොකර් එකක් තිබුණොත් මේ bait එකේ height එක 0 වෙනවා
-                    if (adBait.offsetHeight === 0) {
-                        resolve(true);
-                    } else {
-                        resolve(false);
-                    }
-                    document.body.removeChild(adBait);
-                }, 100);
-            });
+        // Ad-blocker එකක් තියෙනවද කියලා බලන "Bait" එක
+        async function checkAdBlock() {
+            const adBait = document.createElement('div');
+            adBait.className = 'adsbox ad-unit';
+            adBait.setAttribute('style', 'position:absolute;left:-999px;width:1px;height:1px;');
+            document.body.appendChild(adBait);
+            
+            const isBlocked = adBait.offsetHeight === 0;
+            document.body.removeChild(adBait);
+            return isBlocked;
         }
 
-        async function initCheck() {
-            const isBlocked = await checkAdBlocker();
+        async function onSecurityPass(token) {
+            const isBlocked = await checkAdBlock();
             
             if (isBlocked) {
                 document.getElementById('adblock-overlay').style.display = 'flex';
                 document.getElementById('verify-overlay').style.display = 'none';
-                document.body.style.overflow = 'hidden';
+            } else {
+                // සයිට් එක පෙන්වන්න
+                document.getElementById('verify-overlay').style.opacity = "0";
+                setTimeout(() => {
+                    document.getElementById('verify-overlay').style.display = "none";
+                    const content = document.getElementById('main-site-content');
+                    content.style.opacity = "1";
+                    content.style.transform = "translateY(0)";
+                    document.body.style.overflow = "auto";
+                }, 600);
             }
         }
 
-        function onSecurityPass(token) {
-            // Verification එක ඉවර වුණාම Ad-blocker එකත් බලනවා
-            initCheck().then(() => {
-                const verifyLayer = document.getElementById('verify-overlay');
-                const mainContent = document.getElementById('main-site-content');
-
-                verifyLayer.style.opacity = "0";
-                setTimeout(() => {
-                    verifyLayer.style.display = "none";
-                    mainContent.style.opacity = "1";
-                    mainContent.style.pointerEvents = "auto";
-                    document.body.style.overflow = "auto";
-                }, 500);
-            });
-        }
-
-        // මුලින්ම check කරනවා
-        window.onload = initCheck;
+        window.onload = async () => {
+            if (await checkAdBlock()) {
+                document.getElementById('adblock-overlay').style.display = 'flex';
+                document.getElementById('verify-overlay').style.display = 'none';
+            }
+        };
     </script>
 </body>
 </html>

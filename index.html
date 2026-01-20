@@ -382,40 +382,72 @@
 
         .card {
             background: var(--bg-card);
-            padding: 48px 32px;
-            border-radius: 12px;
+            padding: 40px 32px;
+            border-radius: 16px;
             text-align: center;
             border: 1px solid var(--border);
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover::before {
+            transform: scaleX(1);
         }
 
         .card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+            border-color: var(--primary);
+        }
+
+        .card-icon-wrapper {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 24px;
+            background: linear-gradient(135deg, rgba(79, 70, 229, 0.1), rgba(124, 58, 237, 0.1));
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            border: 1px solid var(--border);
+        }
+
+        .card:hover .card-icon-wrapper {
+            transform: scale(1.1) rotate(5deg);
+            background: linear-gradient(135deg, rgba(79, 70, 229, 0.2), rgba(124, 58, 237, 0.2));
             border-color: var(--primary);
         }
 
         .card-icon {
-            font-size: 3.5rem;
-            margin-bottom: 20px;
-            display: inline-block;
+            font-size: 2.5rem;
             transition: 0.3s;
         }
 
-        .card:hover .card-icon {
-            transform: scale(1.1);
-        }
-
         .card h2 { 
-            margin: 0 0 12px; 
+            margin: 0 0 16px; 
             font-size: 1.5rem;
             font-weight: 700;
             color: var(--text-primary);
+            letter-spacing: -0.01em;
         }
 
         .card p {
             color: var(--text-secondary);
-            margin-bottom: 24px;
+            margin-bottom: 28px;
             font-size: 14px;
             line-height: 1.6;
         }
@@ -424,23 +456,40 @@
             background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             color: white;
             border: none;
-            padding: 14px 32px;
-            border-radius: 8px;
+            padding: 16px 32px;
+            border-radius: 10px;
             font-weight: 600;
             font-size: 15px;
             cursor: pointer;
             width: 100%;
-            transition: all 0.2s ease;
-            box-shadow: 0 4px 12px var(--glow);
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(79, 70, 229, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .start-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .start-btn:hover::before {
+            left: 100%;
         }
 
         .start-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px var(--glow);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(79, 70, 229, 0.4);
         }
 
         .start-btn:active {
-            transform: translateY(0);
+            transform: translateY(-1px);
         }
 
         /* Features Section */
@@ -762,7 +811,17 @@
             }
 
             .card {
-                padding: 36px 24px;
+                padding: 32px 24px;
+            }
+
+            .card-icon-wrapper {
+                width: 70px;
+                height: 70px;
+                margin-bottom: 20px;
+            }
+
+            .card-icon {
+                font-size: 2.2rem;
             }
 
             .card h2 {
@@ -793,20 +852,50 @@
                 grid-template-columns: 1fr;
             }
 
+            .card-icon-wrapper {
+                width: 60px;
+                height: 60px;
+            }
+
             .card-icon {
-                font-size: 3rem;
+                font-size: 2rem;
+            }
+
+            .verify-box {
+                padding: 32px 24px;
+            }
+
+            .verify-logo-icon {
+                width: 70px;
+                height: 70px;
             }
         }
     </style>
 </head>
 <body>
     <div id="verify-overlay">
-        <h1>
-            <div class="logo-icon"></div>
-            Free Convert
-        </h1>
-        <p style="color: var(--text-secondary); margin-bottom: 24px; font-size: 14px;">Verifying your connection...</p>
-        <div class="cf-turnstile" data-sitekey="0x4AAAAAACNKu8R5F_6XYIB2" data-callback="onSecurityPass"></div>
+        <div class="verify-container">
+            <div class="verify-logo-wrapper">
+                <div class="verify-logo-icon"></div>
+            </div>
+            
+            <h1>Free Convert</h1>
+            <p class="verify-subtitle">Professional File Conversion Platform</p>
+            
+            <div class="verify-box">
+                <div class="verify-status">
+                    <div class="verify-spinner"></div>
+                    <span>Verifying your connection...</span>
+                </div>
+                
+                <div class="cf-turnstile" data-sitekey="0x4AAAAAACNKu8R5F_6XYIB2" data-callback="onSecurityPass"></div>
+                
+                <div class="verify-info">
+                    <strong>Why am I seeing this?</strong><br>
+                    We're checking your connection to ensure secure access to our conversion services.
+                </div>
+            </div>
+        </div>
     </div>
 
     <div id="mySidebar" class="sidebar">
@@ -867,7 +956,9 @@
 
             <div class="converter-grid">
                 <div class="card">
-                    <div class="card-icon">🖼️</div>
+                    <div class="card-icon-wrapper">
+                        <div class="card-icon">🖼️</div>
+                    </div>
                     <h2>Image Converter</h2>
                     <p>Convert between JPG, PNG, WEBP, SVG and more formats</p>
                     <button class="start-btn" onclick="location.href='c-img.html'">
@@ -875,7 +966,9 @@
                     </button>
                 </div>
                 <div class="card">
-                    <div class="card-icon">🎵</div>
+                    <div class="card-icon-wrapper">
+                        <div class="card-icon">🎵</div>
+                    </div>
                     <h2>Audio Converter</h2>
                     <p>Transform MP3, WAV, OGG, FLAC formats easily</p>
                     <button class="start-btn" onclick="location.href='c-audio.html'">
@@ -883,7 +976,9 @@
                     </button>
                 </div>
                 <div class="card">
-                    <div class="card-icon">🎬</div>
+                    <div class="card-icon-wrapper">
+                        <div class="card-icon">🎬</div>
+                    </div>
                     <h2>Video Converter</h2>
                     <p>Convert MP4, AVI, MOV, MKV and more formats</p>
                     <button class="start-btn" onclick="location.href='c-video.html'">
